@@ -1,0 +1,39 @@
+{
+  "name": "othercodes/ddd-value-object",
+  "description": "Small library to easily apply the Value Object Pattern.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Unay Santisteban",
+      "email": "usantisteban@othercode.es"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "OtherCode\\DDDValueObject\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "OtherCode\\DDDValueObject\\Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "ramsey/uuid": "^4.1",
+    "nesbot/carbon": "^2.40",
+    "konekt/enum": "^3.0"
+  },
+  "require-dev": {
+    "mockery/mockery": "^1.4",
+    "phpunit/phpunit": "^9.3",
+    "fzaninotto/faker": "^1.9"
+  },
+  "scripts": {
+    "test": "phpunit --configuration phpunit.xml --testdox",
+    "test-cov": "phpunit --configuration phpunit.xml --testdox --coverage-html=coverage",
+    "post-install-cmd": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ]
+  }
+}
