@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace OtherCode\DDDValueObject;
 
+use Exception;
+use OtherCode\DDDValueObject\Exceptions\ImmutableValueException;
+
 /**
  * Trait HasImmutability
  *
@@ -12,39 +15,41 @@ namespace OtherCode\DDDValueObject;
 trait HasImmutability
 {
     /**
-     * Immutability flag.
+     * Defines the exception that will be thrown on the change value attempt.
      *
-     * @var bool
+     * @var string
      */
-    private bool $isImmutable = true;
+    protected string $immutabilityException = ImmutableValueException::class;
 
     /**
-     * Return if the object is immutable or not, always true.
+     * Messages used by this feature, can be customized by overriding the
+     * property in the child class.
+     *
+     * @var array<string, string>
+     */
+    protected array $immutabilityMessages = [
+        'default' => 'Illegal attempt to change immutable value.',
+    ];
+
+    /**
+     * Always return true as we are using HasImmutability trait.
      *
      * @return bool
      */
     public function isImmutable(): bool
     {
-        return $this->isImmutable;
+        return true;
     }
 
     /**
-     * Set the immutability flag as false.
+     * Block any value modification attempt.
      *
-     * @return void
+     * @throws ImmutableValueException|Exception
      */
-    public function disableImmutability(): void
+    protected function immutableSet(): void
     {
-        $this->isImmutable = false;
-    }
-
-    /**
-     * Set the immutability flag as true.
-     *
-     * @return void
-     */
-    public function enableImmutability(): void
-    {
-        $this->isImmutable = true;
+        throw new $this->immutabilityException(
+            $this->immutabilityMessages['default']
+        );
     }
 }

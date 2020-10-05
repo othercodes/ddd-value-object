@@ -9,21 +9,46 @@ namespace OtherCode\DDDValueObject;
  *
  * @package OtherCode\DDDValueObject
  */
-interface HasEquality
+trait HasEquality
 {
     /**
-     * Represents the object as string.
+     * Defines the algorithm used to hash the string representation
+     * of the value object. sha256 by default.
      *
-     * @return string
+     * @var string
      */
-    public function __toString(): string;
+    private string $equalityHashAlgorithm = 'sha256';
 
     /**
-     * Compare other object with HasEquality capabilities.
+     * Compare $this object with $other object. If the class is not
+     * the same directly return false, compare value equality hash
+     * otherwise.
      *
-     * @param HasEquality $other
+     * @param object $other
      *
      * @return bool
      */
-    public function equals(HasEquality $other): bool;
+    public function equals(object $other): bool
+    {
+        if (!($other instanceof static)) {
+            return false;
+        }
+
+        return $this->equalityHash() === $other->equalityHash();
+    }
+
+    /**
+     * Calculate a string hash based in the object value.
+     *
+     * @return string
+     */
+    public function equalityHash(): string
+    {
+        return hash(
+            $this->equalityHashAlgorithm,
+            method_exists($this, 'getValues')
+                ? json_encode($this->getValues())
+                : serialize($this)
+        );
+    }
 }

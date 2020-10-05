@@ -15,19 +15,18 @@ use InvalidArgumentException;
 trait HasInvariants
 {
     /**
-     * Define the invariant string prefix: "invariant" by default.
+     * Defines the invariant string prefix: "invariant" by default.
      *
      * @var string
      */
     protected string $invariantPrefix = "invariant";
 
     /**
-     * Define the exception that will be threw on invariant violation if
-     * the silent model is switched off. Check $invariantSilenceValidation
+     * Defines the exception that will be thrown on an invariant violation.
      *
      * @var string
      */
-    protected string $invariantExceptionType = InvalidArgumentException::class;
+    protected string $invariantException = InvalidArgumentException::class;
 
     /**
      * Messages used by this feature, can be customized by overriding the
@@ -123,9 +122,7 @@ trait HasInvariants
      */
     protected function onFail(array $violations): bool
     {
-        $exception = $this->invariantExceptionType;
-
-        throw new $exception(
+        throw new $this->invariantException(
             strtr(
                 $this->invariantMessages['fail'],
                 [
