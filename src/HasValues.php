@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace OtherCode\DDDValueObject;
 
-use OtherCode\DDDValueObject\Exceptions\ImmutableValueException;
-
 /**
  * Trait HasValues
  *
@@ -35,19 +33,25 @@ trait HasValues
     }
 
     /**
+     * Return the internal list of values.
+     *
+     * @return array<string, string>
+     */
+    protected function getValues(): array
+    {
+        return $this->values;
+    }
+
+    /**
      * Set value into the value storage.
      *
      * @param string $key
      * @param mixed  $value
-     *
-     * @throws ImmutableValueException
      */
     protected function set(string $key, $value): void
     {
-        if (method_exists($this, 'isImmutable') && $this->isImmutable()) {
-            throw new ImmutableValueException(
-                'Illegal attempt to change immutable value.'
-            );
+        if (method_exists($this, 'immutableSet')) {
+            $this->immutableSet();
         }
 
         $this->values[$key] = $value;

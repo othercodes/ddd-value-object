@@ -13,9 +13,9 @@ use OtherCode\DDDValueObject\HasValues;
  *
  * @package Antares\Shared\Domain\ValueObjects
  */
-class BoolValueObject implements HasEquality
+class BoolValueObject
 {
-    use HasValues, HasImmutability;
+    use HasValues, HasImmutability, HasEquality;
 
     /**
      * BoolValueObject constructor.
@@ -35,18 +35,6 @@ class BoolValueObject implements HasEquality
     public function value(): bool
     {
         return $this->get('value');
-    }
-
-    /**
-     * Compare other object with HasEquality capabilities.
-     *
-     * @param HasEquality $other
-     *
-     * @return bool
-     */
-    public function equals(HasEquality $other): bool
-    {
-        return (string)$this === (string)$other;
     }
 
     /**

@@ -21,34 +21,11 @@ class HasImmutabilityTest extends MockeryTestCase
         $this->assertTrue($vo->isImmutable());
     }
 
-    public function testShouldToggleImmutability(): void
-    {
-        $vo = new DummyNameVOImmutable('some value');
-
-        $vo->disableImmutability();
-        $this->assertFalse($vo->isImmutable());
-
-        $vo->enableImmutability();
-        $this->assertTrue($vo->isImmutable());
-    }
-
     public function testShouldThrowExceptionOnValueModificationAttempt(): void
     {
         $this->expectException(ImmutableValueException::class);
 
         $vo = new DummyNameVOImmutable('some value');
         $vo->value = 'new value';
-    }
-
-    public function testShouldAllowValueModificationWithDisabledImmutability(
-    ): void
-    {
-        $vo = new DummyNameVOImmutable('some value');
-        $vo->disableImmutability();
-
-        $newValue = 'new value';
-
-        $vo->value = $newValue;
-        $this->assertEquals($newValue, $vo->value);
     }
 }

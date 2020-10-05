@@ -15,9 +15,9 @@ use OtherCode\DDDValueObject\HasValues;
  *
  * @package OtherCode\DDDValueObject\Basic
  */
-class StringValueObject implements HasEquality
+class StringValueObject
 {
-    use HasValues, HasImmutability, HasInvariants;
+    use HasValues, HasImmutability, HasInvariants, HasEquality;
 
     /**
      * Check the min length or the string.
@@ -96,18 +96,6 @@ class StringValueObject implements HasEquality
     public function value(): string
     {
         return $this->get('value');
-    }
-
-    /**
-     * Check if the strings are equals.
-     *
-     * @param HasEquality $other
-     *
-     * @return bool
-     */
-    public function equals(HasEquality $other): bool
-    {
-        return (string)$this === (string)$other;
     }
 
     /**

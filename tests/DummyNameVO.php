@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OtherCode\DDDValueObject\Tests;
 
 use InvalidArgumentException;
+use OtherCode\DDDValueObject\HasEquality;
 use OtherCode\DDDValueObject\HasInvariants;
 use OtherCode\DDDValueObject\HasValues;
 
@@ -15,7 +16,7 @@ use OtherCode\DDDValueObject\HasValues;
  */
 class DummyNameVO
 {
-    use HasValues, HasInvariants;
+    use HasValues, HasInvariants, HasEquality;
 
     /**
      * DummyNameVO constructor.

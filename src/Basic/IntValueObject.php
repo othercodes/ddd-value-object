@@ -13,9 +13,9 @@ use OtherCode\DDDValueObject\HasValues;
  *
  * @package OtherCode\DDDValueObject\Basic
  */
-class IntValueObject implements HasEquality
+class IntValueObject
 {
-    use HasValues, HasImmutability;
+    use HasValues, HasImmutability, HasEquality;
 
     /**
      * IntValueObject constructor.
@@ -35,18 +35,6 @@ class IntValueObject implements HasEquality
     public function value(): int
     {
         return $this->get('value');
-    }
-
-    /**
-     * Check if the int are equals.
-     *
-     * @param HasEquality $other
-     *
-     * @return bool
-     */
-    public function equals(HasEquality $other): bool
-    {
-        return (string)$this === (string)$other;
     }
 
     /**

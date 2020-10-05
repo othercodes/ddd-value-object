@@ -16,9 +16,9 @@ use Ramsey\Uuid\Uuid;
  *
  * @package OtherCode\DDDValueObject\Basic
  */
-class UUIDValueObject implements HasEquality
+class UUIDValueObject
 {
-    use HasValues, HasImmutability, HasInvariants;
+    use HasValues, HasImmutability, HasInvariants, HasEquality;
 
     private const RANDOM = 'random';
 
@@ -53,18 +53,6 @@ class UUIDValueObject implements HasEquality
     public function value(): string
     {
         return $this->get('value');
-    }
-
-    /**
-     * Check if the uuid is equals to another.
-     *
-     * @param HasEquality $other
-     *
-     * @return bool
-     */
-    public function equals(HasEquality $other): bool
-    {
-        return (string)$this === (string)$other;
     }
 
     /**
