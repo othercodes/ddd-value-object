@@ -10,7 +10,7 @@ Use the following command to install with `composer`:
 composer require othercode/ddd-value-object
 ```
 
-This will automatically get the latest version and configure a composer.json file.
+This will automatically get the latest version and configure a `composer.json` file.
 
 Alternatively you can create the following `composer.json` file and run `composer install` to install it.
 
@@ -50,7 +50,7 @@ class Speed extends OtherCode\DDDValueObject\ValueObject
 
     protected function invariantSpeedMustBeGreaterThanZero(): bool
     {
-        return $this->get('amount') > 0;
+        return $this->amount() > 0;
     }
 
     protected function invariantMagnitudeMustBeValid(): bool
@@ -73,18 +73,16 @@ class Speed extends OtherCode\DDDValueObject\ValueObject
 
     public function increase(Speed $speed): self
     {
-        if ($speed->magnitude() !== $this->get('magnitude')) {
+        if ($speed->magnitude() !== $this->magnitude()) {
             throw new InvalidArgumentException('The given magnitude is not valid.');
         }
 
-        $amount = $this->get('amount') + $speed->amount();
-
-        return new self($amount, $this->get('magnitude'));
+        return new self($this->amount() + $speed->amount(), $this->magnitude());
     }
 
     public function __toString(): string
     {
-        return $this->get('amount') . $this->get('magnitude');
+        return $this->amount() . $this->magnitude();
     }
 }
 ```
@@ -105,7 +103,7 @@ class Speed extends OtherCode\DDDValueObject\ValueObject
 // ...
     public function equalityHash(): string
     {
-        return md5(sprintf('$s %s'), $this->get('amount'), $this->get('magnitude'));
+        return md5(sprintf('$s %s', $this->amount(), $this->magnitude());
     }
 // ...
 }
@@ -169,7 +167,7 @@ class Speed extends OtherCode\DDDValueObject\ValueObject
 // ...
     protected function invariantSpeedMustBeGreaterThanZero(): bool
     {
-        if($this->get('speed') <= 0) {
+        if($this->amount() < 0) {
             throw new InvalidArgumentException('The given speed value is not valid');
         }
 
@@ -210,7 +208,7 @@ class Speed extends OtherCode\DDDValueObject\ValueObject
 
     protected function invariantSpeedMustBeGreaterThanZero(): bool
     {
-        if($this->get('speed') <= 0) {
+        if($this->amount() < 0) {
             throw new InvalidArgumentException('The given speed value is not valid');
         }
 
