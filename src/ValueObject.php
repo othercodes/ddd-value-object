@@ -11,5 +11,5 @@ namespace OtherCode\DDDValueObject;
  */
 abstract class ValueObject
 {
-    use HasValues, HasImmutability, HasInvariants, HasEquality;
+    use IsValueObject;
 }
