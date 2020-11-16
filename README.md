@@ -1,5 +1,7 @@
 # DDD Value Object
 
+![Tests](https://github.com/othercodes/ddd-value-object/workflows/Tests/badge.svg) [![License](https://poser.pugx.org/othercodes/ddd-value-object/license)](https://packagist.org/packages/othercodes/ddd-value-object) [![codecov](https://codecov.io/gh/othercodes/ddd-value-object/branch/master/graph/badge.svg)](https://codecov.io/gh/othercodes/ddd-value-object) 
+
 Small library to easily manage the Value Object Pattern.
 
 ## Installation
